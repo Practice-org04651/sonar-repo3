@@ -1,0 +1,14 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+      - Dev
+
+jobs:
+  sonarqube:
+    name: Sonarscan
+    uses: Practice-org04651/sonar/.github/workflows/sonarqube-build.yml@dev
+    secrets:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}

@@ -1,0 +1,62 @@
+apiVersion: apps/v1
+kind: Deployment # Kubernetes resource kind we are creating
+metadata:
+  name: java-app-deployment
+  namespace: java-app
+spec:
+  selector:
+    matchLabels:
+      app: java-app
+  replicas: 1 # Number of replicas that will be created for this deployment
+  template:
+    metadata:
+      labels:
+        app: java-app
+    spec:
+      tolerations:
+        - key: "node-role.kubernetes.io/control-plane"
+          operator: "Exists"
+          effect: "NoSchedule"
+      imagePullSecrets:
+        - name: regcred
+      containers:
+        - name: java-app
+          image: tejadevops04651/harness-java-app:158 # Image that will be used to containers in the cluster
+          ports:
+            - containerPort: 8080 # The port that the container is running on in the cluster
+---
+apiVersion: v1 # Kubernetes API version
+kind: Service # Kubernetes resource kind we are creating
+metadata: # Metadata of the resource kind we are creating
+  name: java-app-service
+  namespace: java-app
+spec:
+  selector:
+    app: java-app
+  ports:
+    - protocol: "TCP"
+      port: 8080 # The port that the service is running on in the cluster
+      targetPort: 8080 # The port exposed by the service
+  type: LoadBalancer # type of the service.
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: java-app-ingress
+  namespace: java-app
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  ingressClassName: nginx  # Make sure this matches your IngressClass name
+  rules:
+  - host: java-app.example.com  # Replace with your actual domain or use a hosts file entry
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: java-app-service
+            port:
+              number: 8080
