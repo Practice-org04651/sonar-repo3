@@ -8,6 +8,8 @@ on:
 
 jobs:
   sonarqube:
+    name: sonar
+    name: sonar
     name: Sonarscan
     uses: SonarSource/sonarqube-scan-action@v6
     secrets:
