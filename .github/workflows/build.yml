@@ -9,6 +9,7 @@ on:
 jobs:
   sonarqube:
     name: Sonarscan
-    uses: path/commonfile
+    name:sonarscan
+    uses: SonarSource/sonarqube-scan-action@v6
     secrets:
       SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
