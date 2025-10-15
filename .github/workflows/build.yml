@@ -7,9 +7,10 @@ on:
       - Dev
 
 jobs:
-  sonarqube:
-    name: Sonarscan
-    name:sonarscan
-    uses: SonarSource/sonarqube-scan-action@v6
-    secrets:
-      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+   build:
+     name: Build and analyze with shared workflow
+     uses: Practice-org04651/sonar-main/.github/workflows/sonarqube-build.yml@Dev
+     secrets:
+       SONAR_TOKEN: ${{ secrets.MSQToken }}
+       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+       SONAR_ROOT_CERT: ${{ secrets.SONAR_ROOT_CERT }}
