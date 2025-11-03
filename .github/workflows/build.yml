@@ -8,9 +8,9 @@ on:
 
 jobs:
    build:
-     name: Build and analyze with shared workflow
-     uses: Practice-org04651/sonar-main/.github/workflows/sonarqube-build.yml@Dev
+     name: Build and analyze
+     uses: Practice-org04651/common-repo/.github/workflows/sonar-build.yml@sonar-cqa
      secrets:
-       SONAR_TOKEN: ${{ secrets.MSQToken }}
+       CONFIG: ${{ secrets.CONFIG }}
        SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
        SONAR_ROOT_CERT: ${{ secrets.SONAR_ROOT_CERT }}
