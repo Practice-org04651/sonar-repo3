@@ -7,10 +7,17 @@ on:
       - Dev
 
 jobs:
-   build:
-     name: Build and analyze
-     uses: Practice-org04651/common-repo/.github/workflows/sonar-build.yml@sonar-cqa
-     secrets:
-       CONFIG: ${{ secrets.CONFIG }}
-       SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-       SONAR_ROOT_CERT: ${{ secrets.SONAR_ROOT_CERT }}
+   build:  
+    name: SonarQube
+    runs-on: ubuntu-latest
+    steps:
+     #- name: keeper
+     #   Token > env:token
+     #   secet config : ${{ secrets.K_config }}
+      - name: checkout code
+        uses: actions/checkout@v4
+        with:
+         fetch-depth: 0
+       #env:
+         #SONAR_TOKEN: ${{ env.token }}
+         #SOMETHING: ${{ secrets.SOMETHING }}
